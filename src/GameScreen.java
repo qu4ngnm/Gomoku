@@ -12,7 +12,7 @@ public class GameScreen extends JPanel{
             Icon backButtonImage = new ImageIcon(getClass().getResource("img/BackButton1.png"));
             setIcon(backButtonImage);
             setBorderPainted(false);
-            setBounds(650,10,55,60);
+            setBounds(20,520,40,40);
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) { //Khi an nut back goc tren thi se truyen comand xong roi sau do
