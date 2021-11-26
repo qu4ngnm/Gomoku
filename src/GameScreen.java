@@ -12,7 +12,7 @@ public class GameScreen extends JPanel{
             Icon backButtonImage = new ImageIcon(getClass().getResource("img/BackButton1.png"));
             setIcon(backButtonImage);
             setBorderPainted(false);
-            setBounds(650,10,55,60);
+            setBounds(20,520,40,40);
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) { //Khi an nut back goc tren thi se truyen comand xong roi sau do
@@ -34,6 +34,7 @@ public class GameScreen extends JPanel{
     public int address; //toa do cua chuot khi click tren table
     public static setImage gameScreenBackground;
     public setImage table; //Bang cac o vuong
+    public static setImage teamImage; //Ten cac thanh vien trong nhom
     public BackButton backButton; //Nut quay tro lai main menu
     public CheckWin check;
     public MouseAdapter onClick;
@@ -48,13 +49,12 @@ public class GameScreen extends JPanel{
         JLabel infoLabel = new JLabel();
         check = new CheckWin(height,width);
         status = new StatusBoard(height,width);
-        infoLabel.setText("Bên X đi trước");
-        infoLabel.setBounds(650,100,100,100);
-        infoLabel.setVisible(true);
+
+//        teamImage = new setImage("img/Frame1edit2",500,20,350,360);
         backButton = new BackButton("Menu");
-//        add(infoLabel);
+//        add(teamImage);
         add(backButton);
-        add(infoLabel);
+//        add(infoLabel);
         player = 1; // cai naay de thang player 1 choi trc (X choi trc)
                     //co the nang cap hon bang switch case de chon xem X hay O di trc
 
