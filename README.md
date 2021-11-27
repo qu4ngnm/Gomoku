@@ -1,4 +1,4 @@
-#Sản phẩm game cờ caro của nhóm 12 bao gồm các thành viên:
+# Sản phẩm game cờ caro của nhóm 12 bao gồm các thành viên:
 
     Trần Thị Thanh
 
@@ -13,6 +13,6 @@
 Màn hình menu của game
 
 
-#Một số hình ảnh của game
+# Một số hình ảnh của game
 ![img_1.png](img_1.png)
 Hình ảnh trong màn hình chơi game
