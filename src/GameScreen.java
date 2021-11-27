@@ -1,40 +1,35 @@
-import sun.applet.Main;
-
-import java.awt.*;
 import java.awt.event.*;
+import java.util.Objects;
 import javax.swing.*;
 
 public class GameScreen extends JPanel{
-    public class BackButton extends JButton {
+    public static class BackButton extends JButton {
 
         public BackButton(String comand){ //Khoi tao nut back
 
-            Icon backButtonImage = new ImageIcon(getClass().getResource("img/BackButton1.png"));
+            Icon backButtonImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("img/BackButton1.png")));
             setIcon(backButtonImage);
             setBorderPainted(false);
             setBounds(20,520,40,40);
-            addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) { //Khi an nut back goc tren thi se truyen comand xong roi sau do
-                    if ("Menu".equals(comand)) {       //ctrinh se remove gameScreen va thay vao do la menuScreen.
-                        MainGame.jFrame.remove(MainGame.gameScreen);
-                    }
-                    MainGame.jFrame.add(MainGame.menuScreen);
-                    MainGame.startGame = true;
-                    MainGame.jFrame.repaint();
+            addActionListener(e -> { //Khi an nut back goc tren thi se truyen comand xong roi sau do
+                if ("Menu".equals(comand)) {       //ctrinh se remove gameScreen va thay vao do la menuScreen.
+                    MainGame.jFrame.remove(MainGame.gameScreen);
                 }
+                MainGame.jFrame.add(MainGame.menuScreen);
+                MainGame.startGame = true;
+                MainGame.jFrame.repaint();
             });
         }
     }
-    int height = 16; //So luong cac o cua game
-    int width = 16;
+    int height; //So luong cac o cua game
+    int width;
     int numsPlayer ; //So luong ng choi: 1 ng choi voi bot, 2 ng choi voi nhau
-    int player; //vi tri danh cua ng choi
+    int player; //player = 1 (X), player = 2 (O)
     public StatusBoard status; //trang thai cua cac o, chua danh = 0; 1|2 la x|o
     public int address; //toa do cua chuot khi click tren table
     public static setImage gameScreenBackground;
     public setImage table; //Bang cac o vuong
-    public static setImage teamImage; //Ten cac thanh vien trong nhom
+//    public static setImage teamImage; //Ten cac thanh vien trong nhom
     public BackButton backButton; //Nut quay tro lai main menu
     public CheckWin check;
     public MouseAdapter onClick;
@@ -46,7 +41,7 @@ public class GameScreen extends JPanel{
         setLayout(null);
         height= 16;
         width = 16;
-        JLabel infoLabel = new JLabel();
+//        JLabel infoLabel = new JLabel();
         check = new CheckWin(height,width);
         status = new StatusBoard(height,width);
 
@@ -62,7 +57,7 @@ public class GameScreen extends JPanel{
         table = new setImage("img/gameScreenBackgr.png",20,20,480,480);
 
 
-        normalGame();
+        GamePlay();
         setImage[][] squareBox = new setImage[16][16]; //Dien tung o vuong vao cac o trong table
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
@@ -77,15 +72,15 @@ public class GameScreen extends JPanel{
         add(gameScreenBackground);
     }
 
-    public void normalGame(){
+    public void GamePlay(){
         player = 1;
-        JPanel turn;
+//        JPanel turn;
         onClick = new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
 //                super.mouseClicked(e);
 
-                if(MainGame.startGame == true){
+                if(MainGame.startGame){
                     MainGame.jFrame.repaint();
                     setImage a = (setImage) e.getComponent();
                     address = table.getComponentZOrder(a); //tra ve vi tri khi click chuot theo thu tu la cot doc
@@ -98,7 +93,7 @@ public class GameScreen extends JPanel{
                             a.setPicture("img/XPoint1.png");
                             status.setStatus(row,col,player);
                             repaint();
-                            if(check.isChecked(row,col,status.statusBoard,player) == true ){
+                            if(check.isChecked(row, col, status.statusBoard, player)){
                                 MainGame.startGame = false ;
                                 winner = 1;
                                 JFrame msgDialog = new JFrame();
@@ -124,7 +119,7 @@ public class GameScreen extends JPanel{
                             status.setStatus(row,col,player);
                             repaint();
 
-                            if(check.isChecked(row, col, status.statusBoard,player) == true){
+                            if(check.isChecked(row, col, status.statusBoard, player)){
                                 MainGame.startGame = false;
                                 winner = 2;
                                 JFrame msgDialog = new JFrame();

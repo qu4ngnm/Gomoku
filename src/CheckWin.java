@@ -49,6 +49,7 @@ public class CheckWin {
         }
         return false;
     }
+
     public boolean cheoTraiCheck(int row,int col,int[][] status, int player){
 
         int count = 0;
@@ -104,6 +105,8 @@ public class CheckWin {
         return false;
     }
     public boolean isChecked(int row, int col, int[][] status, int player) {
+        int playerPoint = 0;
+        int oponentPoint = 0;
         if (rowCheck(row, col, status, player)) {
             return true;
         }

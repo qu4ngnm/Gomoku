@@ -1,5 +1,4 @@
 
-
 public class StatusBoard {
     int height;
     int width;
