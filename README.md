@@ -11,6 +11,8 @@
     Nguyễn Minh Quang
 ![img.png](img.png)
 Màn hình menu của game
+
+
 #Một số hình ảnh của game
 ![img_1.png](img_1.png)
 Hình ảnh trong màn hình chơi game
