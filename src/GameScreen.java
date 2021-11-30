@@ -1,3 +1,5 @@
+
+
 import java.awt.event.*;
 import java.util.Objects;
 import javax.swing.*;
@@ -34,6 +36,7 @@ public class GameScreen extends JPanel{
     public CheckWin check;
     public MouseAdapter onClick;
     public static int winner;
+    public gameBot caroBot;
 
     public GameScreen(){
         winner = -1; //chua co ai win, = 0 la hoa, 1 la X win, 2 la O win
@@ -44,13 +47,13 @@ public class GameScreen extends JPanel{
 //        JLabel infoLabel = new JLabel();
         check = new CheckWin(height,width);
         status = new StatusBoard(height,width);
-
+        caroBot = new gameBot(height,width);
 //        teamImage = new setImage("img/Frame1edit2",500,20,350,360);
         backButton = new BackButton("Menu");
 //        add(teamImage);
         add(backButton);
 //        add(infoLabel);
-        player = 1; // cai naay de thang player 1 choi trc (X choi trc)
+        player = 1; // cai nay de player 1 choi trc (X choi trc)
                     //co the nang cap hon bang switch case de chon xem X hay O di trc
 
         gameScreenBackground = new setImage("img/gameScreenBackgr.png", 0,0,800,600);
@@ -67,9 +70,10 @@ public class GameScreen extends JPanel{
                 squareBox[i][j].addMouseListener(onClick);
             }
         }
-        repaint();
+
         add(table);
         add(gameScreenBackground);
+        repaint();
     }
 
     public void GamePlay(){
@@ -95,40 +99,59 @@ public class GameScreen extends JPanel{
                             repaint();
                             if(check.isChecked(row, col, status.statusBoard, player)){
                                 MainGame.startGame = false ;
-                                winner = 1;
                                 JFrame msgDialog = new JFrame();
-                                JOptionPane.showMessageDialog(msgDialog,"Người chơi 1 đã thắng");
+                                JOptionPane.showMessageDialog(msgDialog,"Người chơi 1 (X) đã thắng");
                                 System.out.println("Người chơi 1 win");
                             }
 
                             else if(check.isHoa(status.statusBoard)){
                                 MainGame.startGame = false;
-                                winner = 0;
                                 JFrame msgDialog = new JFrame();
                                 JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
                             }
-
-//
-//                            if(numsPlayer == 1){
-//                                System.out.println( "Chế độ 1 người chơi");
-//                            }
                             player = 2;
+
+
+                            if(numsPlayer == 1){
+//                                System.out.println( "Chế độ chơi với máy");
+                                caroBot.calculateEvaluateBoard(player,status.statusBoard);
+                                do{
+                                    gameBot caroBot = new gameBot(height,width);
+                                    caroBot.calculateEvaluateBoard(player,status.statusBoard);
+                                    caroBot.FindBestMove(status.statusBoard);
+                                    row = caroBot.optimalX;
+                                    col = caroBot.optimalY;
+                                } while(status.statusBoard[row][col] != 0);
+                                setImage botMove = new setImage("img/OPoint1.png", col*30, row*30, 30,30);
+                                table.add(botMove);
+                                repaint();
+                                status.statusBoard[row][col] = 2;
+                                if(check.isChecked(row, col, status.statusBoard, player)){
+                                    MainGame.startGame = false;
+                                    JFrame msgDialog = new JFrame();
+                                    JOptionPane.showMessageDialog(msgDialog,"Máy thắng !!");
+                                }
+                                else if(check.isHoa(status.statusBoard)){
+                                    MainGame.startGame = false;
+                                    JFrame msgDialog = new JFrame();
+                                    JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
+                                }
+                                player = 1;
+                            }
+
                         }
                         else if(player == 2 ){
                             a.setPicture("img/OPoint1.png");
                             status.setStatus(row,col,player);
                             repaint();
-
                             if(check.isChecked(row, col, status.statusBoard, player)){
                                 MainGame.startGame = false;
-                                winner = 2;
                                 JFrame msgDialog = new JFrame();
-                                JOptionPane.showMessageDialog(msgDialog,"Người chơi 2 thắng");
+                                JOptionPane.showMessageDialog(msgDialog,"Người chơi 2 (O) đã thắng");
                                 System.out.println("Người chơi 2 win");
                             }
                             else if(check.isHoa(status.statusBoard)){
                                 MainGame.startGame = false;
-                                winner = 0;
                                 JFrame msgDialog = new JFrame();
                                 JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
                             }

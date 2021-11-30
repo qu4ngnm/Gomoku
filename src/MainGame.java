@@ -30,7 +30,7 @@ public class MainGame {
         jFrame.setVisible(true);
         jFrame.setLayout(null);
         jFrame.setBounds(100,100,width,height);
-        jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLocation(x,y);
         jFrame.add(menuScreen);
     }

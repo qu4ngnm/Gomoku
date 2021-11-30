@@ -15,7 +15,7 @@ public class StatusBoard {
     public void initStatus(){ //Khoi tao trang thai cua tat ca cac o trong bang = 0
         for(int i = 0; i < height; i++){
             for(int j = 0; i < width; j++){
-                statusBoard[i][j]=0;
+                statusBoard[i][j] = 0;
             }
         }
     }
