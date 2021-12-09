@@ -23,21 +23,6 @@ public class StatusBoard {
         statusBoard[row][col] = player;
     }
 
-    public void saveStatus(){ //Tao 1 bang 2 de luu trang thai sau khi ng choi danh 1 nuoc
-        for(int row = 0 ; row < height ; row++) {
-            for(int col = 0 ; col < width ; col++) {
-                saveBoard[row][col] = statusBoard[row][col] ;
-            }
-        }
-    }
-
-    public void loadStatus() {
-        for(int row = 0 ; row < height ; row++) {
-            for(int col = 0 ; col < width ; col++) {
-                statusBoard[row][col] = saveBoard[row][col] ;
-            }
-        }
-    }
 
 
 
