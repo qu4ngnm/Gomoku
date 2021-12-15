@@ -18,11 +18,9 @@ public class setImage extends JPanel{
         this.setBounds(x, y, width, height);
         repaint();
     }
-
     public void setPicture(String nameFile) {
         this.myImage = new ImageIcon(getClass().getResource(nameFile)).getImage();
     }
-
     @Override
     public void paintComponent(Graphics g) { //Ham ve anh
         g.drawImage(myImage, 0, 0, this);

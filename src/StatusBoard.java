@@ -8,8 +8,6 @@ public class StatusBoard {
         this.height = height;
         this.width = width;
         statusBoard = new int[height][width];
-        saveBoard = new int[height][width];
-
     }
 
     public void initStatus(){ //Khoi tao trang thai cua tat ca cac o trong bang = 0

@@ -1,28 +1,13 @@
 
 
+import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Objects;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class GameScreen extends JPanel{
-    public static class BackButton extends JButton {
-
-        public BackButton(String comand){ //Khoi tao nut back
-
-            Icon backButtonImage = new ImageIcon(Objects.requireNonNull(getClass().getResource("img/BackButton1.png")));
-            setIcon(backButtonImage);
-            setBorderPainted(false);
-            setBounds(20,520,40,40);
-            addActionListener(e -> { //Khi an nut back goc tren thi se truyen comand xong roi sau do
-                if ("Menu".equals(comand)) {       //ctrinh se remove gameScreen va thay vao do la menuScreen.
-                    MainGame.jFrame.remove(MainGame.gameScreen);
-                }
-                MainGame.jFrame.add(MainGame.menuScreen);
-                MainGame.startGame = true;
-                MainGame.jFrame.repaint();
-            });
-        }
-    }
     int height; //So luong cac o cua game
     int width;
     int numsPlayer ; //So luong ng choi: 1 ng choi voi bot, 2 ng choi voi nhau
@@ -31,12 +16,10 @@ public class GameScreen extends JPanel{
     public int address; //toa do cua chuot khi click tren table
     public static setImage gameScreenBackground;
     public setImage table; //Bang cac o vuong
-//    public static setImage teamImage; //Ten cac thanh vien trong nhom
-    public BackButton backButton; //Nut quay tro lai main menu
     public CheckWin check;
     public MouseAdapter onClick;
     public static int winner;
-    public gameBot caroBot;
+    public JButton backButton;
 
     public GameScreen(){
         winner = -1; //chua co ai win, = 0 la hoa, 1 la X win, 2 la O win
@@ -47,30 +30,46 @@ public class GameScreen extends JPanel{
 //        JLabel infoLabel = new JLabel();
         check = new CheckWin(height,width);
         status = new StatusBoard(height,width);
-        caroBot = new gameBot(height,width);
 //        teamImage = new setImage("img/Frame1edit2",500,20,350,360);
-        backButton = new BackButton("Menu");
+//        backButton = new BackButton("Menu");
 //        add(teamImage);
-        add(backButton);
+//        add(backButton);
 //        add(infoLabel);
         player = 1; // cai nay de player 1 choi trc (X choi trc)
                     //co the nang cap hon bang switch case de chon xem X hay O di trc
 
         gameScreenBackground = new setImage("img/gameScreenBackgr.png", 0,0,800,600);
         table = new setImage("img/gameScreenBackgr.png",20,20,480,480);
-
-
+        Image backButtonImage = null;
+        try {
+            backButtonImage = ImageIO.read(getClass().getResource("img/BackButton1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        backButton = new JButton("");
+        backButton.setIcon(new ImageIcon(backButtonImage));
+        backButton.setBorderPainted(false);
+        backButton.setBounds(20,520,40,40);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MainGame.jFrame.remove(MainGame.gameScreen);
+                MainGame.jFrame.add(MainGame.menuScreen);
+                MainGame.startGame = true;
+                MainGame.jFrame.repaint();
+            }
+        });
+        add(backButton);
         GamePlay();
         setImage[][] squareBox = new setImage[16][16]; //Dien tung o vuong vao cac o trong table
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
                 status.statusBoard[i][j] = 0; //set trang thai cua cac o = 0;
-                squareBox[i][j] = new setImage("img/box1.png",i*30,j*30,31,31);
+                squareBox[i][j] = new setImage("img/box1.png",i*32,j*32,31,31);
                 table.add(squareBox[i][j]);
                 squareBox[i][j].addMouseListener(onClick);
             }
         }
-
         add(table);
         add(gameScreenBackground);
         repaint();
@@ -110,35 +109,6 @@ public class GameScreen extends JPanel{
                                 JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
                             }
                             player = 2;
-
-
-                            if(numsPlayer == 1){
-//                                System.out.println( "Chế độ chơi với máy");
-                                caroBot.calculateEvaluateBoard(player,status.statusBoard);
-                                do{
-                                    gameBot caroBot = new gameBot(height,width);
-                                    caroBot.calculateEvaluateBoard(player,status.statusBoard);
-                                    caroBot.FindBestMove(status.statusBoard);
-                                    row = caroBot.optimalX;
-                                    col = caroBot.optimalY;
-                                } while(status.statusBoard[row][col] != 0);
-                                setImage botMove = new setImage("img/OPoint1.png", col*30, row*30, 30,30);
-                                table.add(botMove);
-                                repaint();
-                                status.statusBoard[row][col] = 2;
-                                if(check.isChecked(row, col, status.statusBoard, player)){
-                                    MainGame.startGame = false;
-                                    JFrame msgDialog = new JFrame();
-                                    JOptionPane.showMessageDialog(msgDialog,"Máy thắng !!");
-                                }
-                                else if(check.isHoa(status.statusBoard)){
-                                    MainGame.startGame = false;
-                                    JFrame msgDialog = new JFrame();
-                                    JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
-                                }
-                                player = 1;
-                            }
-
                         }
                         else if(player == 2 ){
                             a.setPicture("img/OPoint1.png");

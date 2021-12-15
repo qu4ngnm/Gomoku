@@ -36,17 +36,13 @@ public class MenuScreen extends JPanel {
             public void actionPerformed(ActionEvent ae) {
 //                System.out.println("1 player key pressed");
                 //Chuong trinh se xoa menu Screen sau do se add game Screen vao voi so ng choi la 1(Choi voi may);
-                MainGame.jFrame.remove(MainGame.menuScreen);
-                MainGame.gameScreen = new GameScreen();
-                MainGame.gameScreen.numsPlayer = 1;
-                MainGame.jFrame.add(MainGame.gameScreen);
-                MainGame.jFrame.repaint();
+                JFrame msgDialog = new JFrame();
+                JOptionPane.showMessageDialog(msgDialog,"Chế độ chơi đang được update");
             }
         });
         twoPlayerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
-//                System.out.println("2 player pressed");
                 //Chuong trinh se xoa menu Screen sau do se add game Screen vao voi so ng choi la 2;
                 MainGame.jFrame.remove(MainGame.menuScreen);
                 MainGame.gameScreen = new GameScreen();
@@ -58,7 +54,7 @@ public class MenuScreen extends JPanel {
         });
         exitButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent ae) {//Cai nay la exit
+            public void actionPerformed(ActionEvent ae) { //Cai nay la exit
                 System.exit(0);
             }
         });

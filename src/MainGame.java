@@ -7,8 +7,6 @@ public class MainGame {
     public static MenuScreen menuScreen;
     public static GameScreen gameScreen;
     public static boolean startGame;
-
-
     static {
         try {
             menuScreen = new MenuScreen();
@@ -16,8 +14,6 @@ public class MainGame {
             e.printStackTrace();
         }
     }
-
-
      public MainGame(){
         startGame = true;
         int width = 800;
@@ -34,7 +30,6 @@ public class MainGame {
         jFrame.setLocation(x,y);
         jFrame.add(menuScreen);
     }
-
     public static void main(String[] args) {
         MainGame main = new MainGame();
     }
