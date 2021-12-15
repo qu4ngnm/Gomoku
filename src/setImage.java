@@ -3,7 +3,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
 public class setImage extends JPanel{
     private int width;
     private int height;
@@ -24,6 +23,5 @@ public class setImage extends JPanel{
     @Override
     public void paintComponent(Graphics g) { //Ham ve anh
         g.drawImage(myImage, 0, 0, this);
-
     }
 }

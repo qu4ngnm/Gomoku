@@ -1,9 +1,6 @@
-
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -27,17 +24,10 @@ public class GameScreen extends JPanel{
         setLayout(null);
         height= 16;
         width = 16;
-//        JLabel infoLabel = new JLabel();
         check = new CheckWin(height,width);
         status = new StatusBoard(height,width);
-//        teamImage = new setImage("img/Frame1edit2",500,20,350,360);
-//        backButton = new BackButton("Menu");
-//        add(teamImage);
-//        add(backButton);
-//        add(infoLabel);
         player = 1; // cai nay de player 1 choi trc (X choi trc)
                     //co the nang cap hon bang switch case de chon xem X hay O di trc
-
         gameScreenBackground = new setImage("img/gameScreenBackgr.png", 0,0,800,600);
         table = new setImage("img/gameScreenBackgr.png",20,20,480,480);
         Image backButtonImage = null;
@@ -103,7 +93,7 @@ public class GameScreen extends JPanel{
                                 System.out.println("Người chơi 1 win");
                             }
 
-                            else if(check.isHoa(status.statusBoard)){
+                            else if(check.isDraw(status.statusBoard)){
                                 MainGame.startGame = false;
                                 JFrame msgDialog = new JFrame();
                                 JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
@@ -120,7 +110,7 @@ public class GameScreen extends JPanel{
                                 JOptionPane.showMessageDialog(msgDialog,"Người chơi 2 (O) đã thắng");
                                 System.out.println("Người chơi 2 win");
                             }
-                            else if(check.isHoa(status.statusBoard)){
+                            else if(check.isDraw(status.statusBoard)){
                                 MainGame.startGame = false;
                                 JFrame msgDialog = new JFrame();
                                 JOptionPane.showMessageDialog(msgDialog,"Trận chiến ngang tài, ngang sức");
@@ -132,6 +122,4 @@ public class GameScreen extends JPanel{
             }
         };
     }
-
-
 }

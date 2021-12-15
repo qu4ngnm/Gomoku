@@ -8,7 +8,7 @@ public class CheckWin {
         this.width = width;
     }
 
-    public boolean isHoa(int[][] status){
+    public boolean isDraw(int[][] status){
         for(int row = 0; row < height; row++){
             for(int col =0; col < width; col++){
                 if(status[row][col] == 0){
